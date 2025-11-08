@@ -11,8 +11,14 @@
 - Primary: Black (0 0% 0%)
 - Background: White (0 0% 100%)
 - Border: No radius (--radius: 0rem)
-- Button shadows: --button-shadow and --button-shadow-hover
-- Transition: --transition-smooth (0.2s cubic-bezier)
+- Button shadows: --button-shadow (2px) and --button-shadow-hover (3px)
+- Floating shadows: --shadow-float, --shadow-float-hover, --shadow-subtle
+- Transition: --transition-smooth (0.15s ease)
+
+## Animation Classes
+- `.btn-3d`: 3D button effect with box-shadow animation
+- `.float-effect`: Floating effect with translateY on hover
+- `.subtle-float`: Subtle box-shadow for depth
 
 ## Components Structure
 

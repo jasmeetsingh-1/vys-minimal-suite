@@ -42,6 +42,11 @@ All colors MUST be HSL.
     --button-shadow: 2px 2px 0px 0px hsl(0 0% 0%);
     --button-shadow-hover: 3px 3px 0px 0px hsl(0 0% 0%);
     
+    /* Floating Shadow Effects */
+    --shadow-float: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-float-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.06);
+    
     /* Animation timing */
     --transition-smooth: all 0.15s ease;
   }
@@ -77,6 +82,11 @@ All colors MUST be HSL.
 
     --button-shadow: 2px 2px 0px 0px hsl(0 0% 100%);
     --button-shadow-hover: 3px 3px 0px 0px hsl(0 0% 100%);
+    
+    /* Floating Shadow Effects - Dark Mode */
+    --shadow-float: 0 4px 12px rgba(255, 255, 255, 0.08);
+    --shadow-float-hover: 0 8px 24px rgba(255, 255, 255, 0.12);
+    --shadow-subtle: 0 2px 8px rgba(255, 255, 255, 0.06);
   }
 }
 
@@ -105,5 +115,20 @@ All colors MUST be HSL.
   .btn-3d:active:not(:disabled) {
     box-shadow: 1px 1px 0px 0px hsl(var(--foreground));
     transform: translate(1px, 1px);
+  }
+
+  /* Floating Effect Classes */
+  .float-effect {
+    box-shadow: var(--shadow-float);
+    transition: var(--transition-smooth);
+  }
+
+  .float-effect:hover {
+    box-shadow: var(--shadow-float-hover);
+    transform: translateY(-2px);
+  }
+
+  .subtle-float {
+    box-shadow: var(--shadow-subtle);
   }
 }

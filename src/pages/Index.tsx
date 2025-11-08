@@ -20,7 +20,7 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="border-b-2 border-foreground">
+      <header className="border-b border-foreground subtle-float">
         <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold">VYS</h1>
           
@@ -61,8 +61,8 @@ const Index = () => {
             </div>
             
             <div className="flex-1">
-              <div className="border-2 border-foreground overflow-hidden">
-                <img 
+              <div className="border border-foreground overflow-hidden float-effect">
+                <img
                   src={heroImage} 
                   alt="Premium cricket equipment" 
                   className="w-full h-auto"
@@ -74,13 +74,13 @@ const Index = () => {
       </section>
 
       {/* Products Preview Section */}
-      <section className="py-20 border-t-2 border-foreground">
+      <section className="py-20 border-t border-foreground">
         <div className="container mx-auto px-6">
           <h3 className="text-3xl font-bold mb-12 text-center">Featured Products</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Product 1 */}
-            <div className="border-2 border-foreground p-6 flex flex-col gap-4">
+            <div className="border border-foreground p-6 flex flex-col gap-4 float-effect">
               <div className="aspect-square bg-secondary flex items-center justify-center">
                 <span className="text-4xl font-bold">BAT</span>
               </div>
@@ -95,7 +95,7 @@ const Index = () => {
             </div>
 
             {/* Product 2 */}
-            <div className="border-2 border-foreground p-6 flex flex-col gap-4">
+            <div className="border border-foreground p-6 flex flex-col gap-4 float-effect">
               <div className="aspect-square bg-secondary flex items-center justify-center">
                 <span className="text-4xl font-bold">BALL</span>
               </div>
@@ -113,7 +113,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t-2 border-foreground py-8">
+      <footer className="border-t border-foreground py-8">
         <div className="container mx-auto px-6 text-center text-muted-foreground">
           <p>© 2024 VYS Sports Equipment. All rights reserved.</p>
         </div>
