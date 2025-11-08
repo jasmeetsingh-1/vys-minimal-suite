@@ -1,0 +1,190 @@
+---first prompt <START>----
+
+
+Your are frontend developer – and also a designer 
+
+your task is to " create a e-commerce website "
+
+We'll be showcasing the prodcuts like the bat and ball – 
+`I have provided you the brands book find attached file with the name of the  {VYS Brand book.pdf}
+you are pick the color scheme from there and make the design as per it
+`
+below are the some important details about the desgining which you have to keep in mind:
+**always respect these pointers that are given below: <<respect this while making the design>> **
+``pointer starting now
+1. always reuse the common components. for exmaple: buttons and modal. keep the conistency of the design 
+2. buttons must be not border; use border-radius as 0 
+3. use the solid colors, *do not use any color gradiants* 
+4. keep the design to be minimal, make the design of the website as the minimal - minimalist designs.
+``pointers end here 
+
+**Pointers to respect while chossing the color scheme: **
+``pointer starting now
+1. Keep the shade to the minimal. 
+2. I want to use the simple theme of black and white – use the shade of color matching with the brands stand point provided in the {VYS Brand book.pdf}
+3. Buttons must have the animation on the hover, that they come out on the hover giving feels like they are 3D
+``pointers end here 
+
+Now moving forward I will explain the requirement of the website. what pages you need to make 
+<<While making these make sure, you make the one page as the oen component (make the folder of the component and further into it divide the component into smaller parts )>>
+
+``now below I explain the components name <I will provide you with the folder name and further file name>
+1. : folder name ~Login~ 
+    files within it : `LoginSignUpPage.jsx` -> `Login.jsx` and `SignUp.jsx`
+    `LoginSignUpPage.jsx`: this file will have the logic of what page is open -> add the state here to show the `Login.jsx` or `SignUpjsx`
+    `Login.jsx` : will have all the required things of the login 
+        Login requirement : 
+        1. email fields (add the basic email validation) and password field ( provide the feature to see and hide password )
+        2. button: "Login"
+        3. add another button : "Not an user, signup " -> on this switch to `SignUp.jsx` - from the `LoginSignUpPage.jsx`
+        4. add another button of the reset password, {{keep this as the sample for now -> this will be developed in the later stage }}
+    `signup.jsx` : will have all the required things of the signup 
+        Signup requirement : 
+        1. email fields (add the basic email validation) 
+        2. password and confirm password  field ( provide the feature to see and hide password on the password field not the confirm password ) - both passwords must match 
+        2. button: "Signup"
+        3. add another button : "Already an user, login " -> on this switch to `Login.jsx` - from the `LoginSignUpPage.jsx`
+<<Next after login component will be explained later on>>
+
+API endpoints for the login and signup 
+
+### 1. Signup - Create New User
+
+**Endpoint:** `POST /vys/auth/new-signup`
+
+**Description:** Create a new user account
+
+**cURL Command:**
+```bash
+curl -X POST http://localhost:9944/vys/auth/new-signup \
+-H "Content-Type: application/json" \
+-d '{
+  "email": "newuser@example.com",
+  "passwordEncoded": "encodedPassword123",
+  "name": "John Doe"
+}'
+```
+
+**Success Response (200):**
+```json
+{
+  "status": 200,
+  "message": "success!! User created successfully",
+  "data": {
+    "userId": "abc123xyz45678"
+  }
+}
+```
+
+**Error Response - Missing Fields (400):**
+```json
+{
+  "status": 400,
+  "message": "Missing or empty required fields: email, passwordEncoded",
+  "data": {}
+}
+```
+
+**Error Response - Invalid Email (400):**
+```json
+{
+  "status": 400,
+  "message": "Invalid email format",
+  "data": {}
+}
+```
+
+**Error Response - Email Already Exists (409):**
+```json
+{
+  "status": 409,
+  "message": "user exist with the given email",
+  "data": {}
+}
+```
+
+
+--LOGIN API --
+
+
+---
+
+### 2. Login - User Login
+
+**Endpoint:** `POST /vys/auth/login`
+
+**Description:** User login with email and password
+
+**cURL Command:**
+```bash
+curl -X POST http://localhost:9944/vys/auth/login \
+-H "Content-Type: application/json" \
+-d '{
+  "email": "test@example.com",
+  "password": "encodedPassword123"
+}'
+```
+
+**Success Response (200):**
+```json
+{
+  "status": 200,
+  "message": "success!! user logged in successful",
+  "data": {
+    "userId": "test12345678ab"
+  }
+}
+```
+
+**Error Response - Missing Fields (400):**
+```json
+{
+  "status": 400,
+  "message": "Missing or empty required fields: email, password",
+  "data": {}
+}
+```
+
+**Error Response - Invalid Email Format (400):**
+```json
+{
+  "status": 400,
+  "message": "Invalid email format",
+  "data": {}
+}
+```
+
+**Error Response - User Not Found (404):**
+```json
+{
+  "status": 404,
+  "message": "User not found with the given email",
+  "data": {}
+}
+```
+
+**Error Response - Invalid Credentials (401):**
+```json
+{
+  "status": 401,
+  "message": "Invalid credentials",
+  "data": {}
+}
+```
+
+---
+
+<<SOME IMPORTANT POINTERS FOR THE DEVEOPMENT>>
+** Strictly follow these **
+1. you can keep the context file for yourself , so that you can use that to do the things -> always use that to understand what was going on and upto what is developed – store all the theme details into it and also keep in that files things that be used resubale.
+
+2. Keep the code to the minimal , 
+3. Make sure you dont wrap the unneccessary too many divs aroudn the component 
+4. for layout, use the `display: flex` 
+5. keep the code human readable
+
+
+
+
+
+--- first prompt <END> ---
