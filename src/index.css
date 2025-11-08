@@ -39,11 +39,11 @@ All colors MUST be HSL.
     --radius: 0rem;
 
     /* 3D Button Effect Variables */
-    --button-shadow: 4px 4px 0px 0px hsl(0 0% 0%);
-    --button-shadow-hover: 8px 8px 0px 0px hsl(0 0% 0%);
+    --button-shadow: 2px 2px 0px 0px hsl(0 0% 0%);
+    --button-shadow-hover: 3px 3px 0px 0px hsl(0 0% 0%);
     
     /* Animation timing */
-    --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.15s ease;
   }
 
   .dark {
@@ -75,8 +75,8 @@ All colors MUST be HSL.
     --input: 0 0% 20%;
     --ring: 0 0% 100%;
 
-    --button-shadow: 4px 4px 0px 0px hsl(0 0% 100%);
-    --button-shadow-hover: 8px 8px 0px 0px hsl(0 0% 100%);
+    --button-shadow: 2px 2px 0px 0px hsl(0 0% 100%);
+    --button-shadow-hover: 3px 3px 0px 0px hsl(0 0% 100%);
   }
 }
 
@@ -99,11 +99,11 @@ All colors MUST be HSL.
 
   .btn-3d:hover:not(:disabled) {
     box-shadow: var(--button-shadow-hover);
-    transform: translate(-4px, -4px);
+    transform: translate(-1px, -1px);
   }
 
   .btn-3d:active:not(:disabled) {
-    box-shadow: 2px 2px 0px 0px hsl(var(--foreground));
-    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px 0px hsl(var(--foreground));
+    transform: translate(1px, 1px);
   }
 }
