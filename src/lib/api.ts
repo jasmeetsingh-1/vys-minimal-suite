@@ -21,6 +21,22 @@ export interface UserResponse {
   userId: string;
 }
 
+export interface CheckEmailData {
+  email: string;
+}
+
+export interface CheckEmailResponse {
+  exists: boolean;
+  userId: string | null;
+}
+
+export interface ResetPasswordData {
+  email: string;
+  userId: string;
+  token: string;
+  newPasswordEncoded: string;
+}
+
 export const authApi = {
   async signup(data: SignupData): Promise<ApiResponse<UserResponse>> {
     const response = await fetch(`${API_BASE_URL}/vys/auth/new-signup`, {
@@ -36,6 +52,30 @@ export const authApi = {
 
   async login(data: LoginData): Promise<ApiResponse<UserResponse>> {
     const response = await fetch(`${API_BASE_URL}/vys/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    
+    return response.json();
+  },
+
+  async checkEmail(data: CheckEmailData): Promise<ApiResponse<CheckEmailResponse>> {
+    const response = await fetch(`${API_BASE_URL}/vys/auth/check-email`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    
+    return response.json();
+  },
+
+  async resetPassword(data: ResetPasswordData): Promise<ApiResponse<UserResponse>> {
+    const response = await fetch(`${API_BASE_URL}/vys/auth/reset-password`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

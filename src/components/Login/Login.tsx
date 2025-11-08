@@ -5,6 +5,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import { authApi } from '@/lib/api';
 import { validateEmail } from '@/lib/validation';
 import { useToast } from '@/hooks/use-toast';
+import { ResetModal } from '@/components/ResetPassword/ResetModal';
 
 interface LoginProps {
   onSwitchToSignup: () => void;
@@ -16,6 +17,7 @@ export const Login = ({ onSwitchToSignup, onLoginSuccess }: LoginProps) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showResetModal, setShowResetModal] = useState(false);
   const { toast } = useToast();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -124,12 +126,15 @@ export const Login = ({ onSwitchToSignup, onLoginSuccess }: LoginProps) => {
         <Button
           type="button"
           variant="ghost"
-          disabled
+          onClick={() => setShowResetModal(true)}
+          disabled={loading}
           className="w-full"
         >
-          Reset Password (Coming Soon)
+          Reset Password
         </Button>
       </form>
+
+      <ResetModal show={showResetModal} onHide={() => setShowResetModal(false)} />
     </div>
   );
 };
