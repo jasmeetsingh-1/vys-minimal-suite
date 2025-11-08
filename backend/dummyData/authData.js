@@ -17,9 +17,9 @@ let users = [
     name: 'Test User'
   },
   {
-    userID: 'admin1234567abc',
-    email: 'admin@example.com',
-    passwordEncoded: 'encodedAdmin123', // This will be encoded by frontend
+    userID: 'UGKaIJnllbacKA',
+    email: 'jasmeet@gmail.com',
+    passwordEncoded: 'Amritsar@123', // This will be encoded by frontend
     name: 'Admin User'
   }
 ];

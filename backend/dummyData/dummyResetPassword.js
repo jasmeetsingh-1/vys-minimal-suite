@@ -17,6 +17,13 @@ let resetPasswordTokens = [
     token: 'abc123XYZ789token456def',
     emailGenerated: true,
     isValid: true
+  },
+  {
+    userID: "UGKaIJnllbacKA",
+    email: "jasmeet@gmail.com",
+    token: 'abc123XfdYZ789token456def',
+    emailGenerated: true,
+    isValid: true
   }
 ];
 

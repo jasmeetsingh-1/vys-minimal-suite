@@ -263,7 +263,66 @@ curl -X POST http://localhost:9944/vys/auth/login \
 
 ---
 
-### 3. Reset Password
+### 3. Check User By Email
+
+**Endpoint:** `POST /vys/auth/check-email`
+
+**Description:** Check whether a user exists for the provided email
+
+**cURL Command:**
+```bash
+curl -X POST http://localhost:9944/vys/auth/check-email \
+-H "Content-Type: application/json" \
+-d '{
+  "email": "test@example.com"
+}'
+```
+
+**Success Response (User Exists) (200):**
+```json
+{
+  "status": 200,
+  "message": "success!! User exists with the given email",
+  "data": {
+    "exists": true,
+    "userId": "test12345678ab"
+  }
+}
+```
+
+**Success Response (User Not Found) (200):**
+```json
+{
+  "status": 200,
+  "message": "success!! No user found with the given email",
+  "data": {
+    "exists": false,
+    "userId": null
+  }
+}
+```
+
+**Error Response - Missing Fields (400):**
+```json
+{
+  "status": 400,
+  "message": "Missing or empty required fields: email",
+  "data": {}
+}
+```
+
+**Error Response - Invalid Email Format (400):**
+```json
+{
+  "status": 400,
+  "message": "Invalid email format",
+  "data": {}
+}
+```
+
+---
+
+### 4. Reset Password
 
 **Endpoint:** `POST /vys/auth/reset-password`
 
@@ -403,7 +462,7 @@ curl -X POST http://localhost:9944/vys/auth/reset-password \
 
 ---
 
-### 4. Get All Users
+### 5. Get All Users
 
 **Endpoint:** `GET /vys/auth/get-all-users`
 
@@ -444,7 +503,7 @@ curl -X GET http://localhost:9944/vys/auth/get-all-users \
 
 ## Product Data APIs
 
-### 5. Get Product Details
+### 6. Get Product Details
 
 **Endpoint:** `GET /vys/data/products?typeId=`
 
@@ -520,7 +579,7 @@ curl -X GET 'http://localhost:9944/vys/data/products?typeId=999' \
 
 ---
 
-### 6. Create New Product
+### 7. Create New Product
 
 **Endpoint:** `POST /vys/data/products/create`
 
@@ -655,7 +714,7 @@ curl -X POST http://localhost:9944/vys/data/products/create \
 
 ---
 
-### 7. Update Product Availability
+### 8. Update Product Availability
 
 **Endpoint:** `POST /vys/data/products/availability`
 

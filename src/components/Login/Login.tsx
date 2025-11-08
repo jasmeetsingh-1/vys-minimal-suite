@@ -80,7 +80,7 @@ export const Login = ({ onSwitchToSignup, onLoginSuccess }: LoginProps) => {
           <Input
             id="email"
             type="email"
-            placeholder="your@email.com"
+            placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={loading}
@@ -93,7 +93,7 @@ export const Login = ({ onSwitchToSignup, onLoginSuccess }: LoginProps) => {
             <Input
               id="password"
               type={showPassword ? 'text' : 'password'}
-              placeholder="••••••••"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={loading}

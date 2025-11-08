@@ -188,3 +188,206 @@ curl -X POST http://localhost:9944/vys/auth/login \
 
 
 --- first prompt <END> ---
+
+
+
+---Second prompt <START>----
+
+Here are the some important things that you need to keep in mind while developing things ahead 
+update context file to use REACT BOOTSTRAP MODAL  - to implements modal thought out the project
+
+``important pointers start 
+<<Always remember this && and respect this>>
+
+1. Keep the context file always updated, make sure you add all the said implementation steps or the rules that are being explained in the given prompt. 
+2. Always read the context before implementing new things and respect the rules. 
+3. In context file make a session that store all the resubale things details and use them where ever required while developing 
+
+``important pointers end 
+
+Now lets implement a new things : implementing **Reset password functionality**
+
+1. Remove the coming soon from the reset 
+
+Reset functionality flow: 
+``Explaining functionality 
+1. On clicking user see the modal that ask them to enter the email 
+  modal file `resetModal.jsx` -> details explained below
+2. We will  iniate a email (need not to worry for this now -> this will be implemented in the later stage) 
+3. From the email user will be navigated to the `http://localhost:8081/auth/resetPassword?userID=12345&email=johndoe@example.com&token=abc123xyz` on the </resetPassword> we will open `resetPage.jsx` -> page details explained below
+
+
+
+``now below I explain the components name <I will provide you with the folder name and further file name>
+1. : folder name ~resetPassword~ 
+    files within it : `resetModal.jsx` 
+    another file : `resetPage.jsx`
+
+explaining the `resetModal.jsx` 
+- in this file implement the modal using {REACT BOOTSTRAP MODAL} 
+- fields in modal : email -> hit the api `/vys/auth/check-email` to check if user exist 
+  if(userExist) -> enable the "Get Reset Link"
+  if we dont have the user -> show to use that no user found with the email 
+
+<<Later we will add the api which send the email, once we have that then we will show the progress with changing button to "sending email" button will be disabled until loading and once that api success we will show message "Link send successfully, check your email " for now implement this functionality wiht dummy timer *update context file under the pending items * >>
+
+--- resetModal.jsx explanation end ----
+
+explaining the `resetPage.jsx`
+
+this page will open when on {http://localhost:8081/auth/resetPassword?userID=12345&email=johndoe@example.com&token=abc123xyz}
+Read the values from the userID, adn email and token from query params 
+
+UI requirments for this page: 
+1. new Password and confirm password field ( provide the feature to see and hide password )
+2. show the email fetched from teh query params but that would not be edittable <only show the email, UI not as it is the field rather as it is simply the text>
+3. Button "Reset password" -> this initate the API `/auth/reset-password`
+
+
+--- API endpoints Start ---
+API endpoints for the funcitonality 
+
+### 1. Check User By Email
+
+**Endpoint:** `POST /vys/auth/check-email`
+
+**Description:** Check whether a user exists for the provided email
+
+**cURL Command:**
+```bash
+curl -X POST http://localhost:9944/vys/auth/check-email \
+-H "Content-Type: application/json" \
+-d '{
+  "email": "test@example.com"
+}'
+```
+
+**Success Response (User Exists) (200):**
+```json
+{
+  "status": 200,
+  "message": "success!! User exists with the given email",
+  "data": {
+    "exists": true,
+    "userId": "test12345678ab"
+  }
+}
+```
+
+**Success Response (User Not Found) (200):**
+```json
+{
+  "status": 200,
+  "message": "success!! No user found with the given email",
+  "data": {
+    "exists": false,
+    "userId": null
+  }
+}
+```
+
+**Error Response - Missing Fields (400):**
+```json
+{
+  "status": 400,
+  "message": "Missing or empty required fields: email",
+  "data": {}
+}
+```
+
+**Error Response - Invalid Email Format (400):**
+```json
+{
+  "status": 400,
+  "message": "Invalid email format",
+  "data": {}
+}
+```
+
+---
+
+### 2. Reset Password
+
+**Endpoint:** `POST /vys/auth/reset-password`
+
+**Description:** Reset user password using a valid token
+
+**cURL Command:**
+```bash
+curl -X POST http://localhost:9944/vys/auth/reset-password \
+-H "Content-Type: application/json" \
+-d '{
+  "email": "test@example.com",
+  "userId": "test12345678ab",
+  "token": "abc123XYZ789token456def",
+  "newPasswordEncoded": "newEncodedPassword456"
+}'
+```
+
+**Success Response (200):**
+```json
+{
+  "status": 200,
+  "message": "success!! Password reset successfully",
+  "data": {
+    "userId": "test12345678ab"
+  }
+}
+```
+
+**Error Response - Missing Fields (400):**
+```json
+{
+  "status": 400,
+  "message": "Missing or empty required fields: email, userId, token",
+  "data": {}
+}
+```
+
+**Error Response - Invalid Email Format (400):**
+```json
+{
+  "status": 400,
+  "message": "Invalid email format",
+  "data": {}
+}
+```
+
+**Error Response - Email/UserId Mismatch (400):**
+```json
+{
+  "status": 400,
+  "message": "Email and userId do not match",
+  "data": {}
+}
+```
+
+**Error Response - User Not Found (404):**
+```json
+{
+  "status": 404,
+  "message": "User not found with the given email",
+  "data": {}
+}
+```
+
+**Error Response - Invalid/Expired Token (401):**
+```json
+{
+  "status": 401,
+  "message": "Invalid or expired reset token",
+  "data": {}
+}
+```
+
+--- API endpoints end ---
+
+<<SOME IMPORTANT POINTERS FOR THE DEVEOPMENT>> *add this to the context file so that this is always followed*
+1. make sure the new UI is following the same theme 
+2. Keep the code to the minimal , 
+3. Make sure you dont wrap the unneccessary too many divs aroudn the component 
+4. for layout, use the `display: flex` and to make the modal `REACT BOOTSTRAP MODAL`.
+5. keep code neat and clean human readable 
+
+
+---Second prompt <END>----

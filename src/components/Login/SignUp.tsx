@@ -103,7 +103,7 @@ export const SignUp = ({ onSwitchToLogin, onSignupSuccess }: SignUpProps) => {
           <Input
             id="name"
             type="text"
-            placeholder="John Doe"
+            placeholder="Enter your name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             disabled={loading}
@@ -115,7 +115,7 @@ export const SignUp = ({ onSwitchToLogin, onSignupSuccess }: SignUpProps) => {
           <Input
             id="email"
             type="email"
-            placeholder="your@email.com"
+            placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={loading}
@@ -128,7 +128,7 @@ export const SignUp = ({ onSwitchToLogin, onSignupSuccess }: SignUpProps) => {
             <Input
               id="password"
               type={showPassword ? 'text' : 'password'}
-              placeholder="••••••••"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={loading}
@@ -149,7 +149,7 @@ export const SignUp = ({ onSwitchToLogin, onSignupSuccess }: SignUpProps) => {
           <Input
             id="confirmPassword"
             type="password"
-            placeholder="••••••••"
+            placeholder="Enter your password again"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             disabled={loading}
