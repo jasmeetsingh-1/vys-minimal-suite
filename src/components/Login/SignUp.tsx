@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Eye, EyeOff } from 'lucide-react';
-import { authApi } from '@/lib/api';
+import { authApi, type UserResponse } from '@/lib/api';
 import { validateEmail, validatePassword } from '@/lib/validation';
 import { useToast } from '@/hooks/use-toast';
 
 interface SignUpProps {
   onSwitchToLogin: () => void;
-  onSignupSuccess: (userId: string) => void;
+  onSignupSuccess: (user: UserResponse) => void;
 }
 
 export const SignUp = ({ onSwitchToLogin, onSignupSuccess }: SignUpProps) => {
@@ -74,7 +74,11 @@ export const SignUp = ({ onSwitchToLogin, onSignupSuccess }: SignUpProps) => {
           title: "Success",
           description: "Account created successfully!",
         });
-        onSignupSuccess(response.data.userId);
+        onSignupSuccess({
+          userId: response.data.userId,
+          name,
+          email,
+        });
       } else {
         toast({
           title: "Error",

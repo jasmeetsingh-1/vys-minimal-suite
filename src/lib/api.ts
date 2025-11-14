@@ -19,6 +19,8 @@ export interface LoginData {
 
 export interface UserResponse {
   userId: string;
+  name?: string;
+  email?: string;
 }
 
 export interface CheckEmailData {

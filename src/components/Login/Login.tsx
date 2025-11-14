@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Eye, EyeOff } from 'lucide-react';
-import { authApi } from '@/lib/api';
+import { authApi, type UserResponse } from '@/lib/api';
 import { validateEmail } from '@/lib/validation';
 import { useToast } from '@/hooks/use-toast';
 import { ResetModal } from '@/components/ResetPassword/ResetModal';
 
 interface LoginProps {
   onSwitchToSignup: () => void;
-  onLoginSuccess: (userId: string) => void;
+  onLoginSuccess: (user: UserResponse) => void;
 }
 
 export const Login = ({ onSwitchToSignup, onLoginSuccess }: LoginProps) => {
@@ -51,7 +51,7 @@ export const Login = ({ onSwitchToSignup, onLoginSuccess }: LoginProps) => {
           title: "Success",
           description: "Login successful!",
         });
-        onLoginSuccess(response.data.userId);
+        onLoginSuccess(response.data);
       } else {
         toast({
           title: "Error",
