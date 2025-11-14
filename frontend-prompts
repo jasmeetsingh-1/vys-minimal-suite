@@ -391,3 +391,225 @@ curl -X POST http://localhost:9944/vys/auth/reset-password \
 
 
 ---Second prompt <END>----
+
+
+
+---Third prompt <START>----
+**Do read the context file you have made and kept for your reference read it and follow the things mentioned into it **
+
+Now as the frontend- developer : as the desginer you are to make the home page of the same website that we are making above 
+
+Work flow we'll follow to make the home page 
+1. First make the react store <<This will be explained to you ahead - what exactly you need to make and structures to follow>>
+2. Then we will break the home page into different components. and make those turn by turn 
+
+Now lets implement a new things : implementing **React store**
+
+1. Add the react presistor store using the redux. 
+2. Make sure code is simple and human readable
+
+Folder structure : 
+
+``now below I explain the components name <I will provide you with the folder name and further file name>
+1. : folder name ~react-store~ 
+    files within it : `store.jsx` 
+    another file : `slicesReducers.jsx` //this file will have the react store slices and there reducers ( in our case there must be too <auth> and <cart>)
+
+
+Explaining React Store functionality: 
+
+``REACT STORE DATA STRUCTURE -START- <js code>
+{
+  authData: { //this key will have the data of the logged in user -> we will get this data in the login api ~${API_BASE_URL}/vys/auth/login~ <Already defined in the fronted>
+        "userId": "UGKaIJnllbacKA",
+        "name": "Admin User",
+        "email": "jasmeet@gmail.com"
+    },
+    cartItems: {} //this key will have the data of the cart <This will be implemented in later>
+}
+
+``REACT STORE DATA STRUCTURE -END-
+
+
+``REACT STORE FUNCTIONAL STRUCTURE -START- <js code>
+
+```
+import { createSlice, configureStore, combineReducers } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
+const persistConfig = {
+  key: "react",
+  storage,
+};
+
+const signUpFormData = {
+  signupdata: [],
+};
+
+const loginFormData = {
+  isloggedIn: false,
+  data: {},
+};
+
+const complaintInitials = {
+  complaintData: [],
+};
+
+const LoginSlice = createSlice({
+  name: "login",
+  initialState: loginFormData,
+  reducers: {
+    loginButtonHandlerReducers(state, action) {
+      state.isloggedIn = action.payload.status;
+      state.data = action.payload.userdata;
+    },
+
+    logoutButtonHandler(state) {
+      state.isloggedIn = false;
+      state.data = {};
+    },
+    billPaidHandler(state) {
+      const allData = { ...state.data };
+      allData.paidBills = { ...allData.pendingBills[0] };
+      state.isloggedIn = true;
+      state.data = allData;
+    },
+  },
+});
+
+const SignUpSlice = createSlice({
+  name: "signUp",
+  initialState: signUpFormData,
+  reducers: {
+    signupButtonHandlerReducer(state, action) {
+      const newSignUp = {
+        consumerId: action.payload.consumerId,
+        billNumber: action.payload.billNumber,
+        title: action.payload.title,
+        customerName: action.payload.customerName,
+        email: action.payload.email,
+        countryCode: action.payload.countryCode,
+        password: action.payload.password,
+        phoneNumber: action.payload.phoneNumber,
+        address: action.payload.address,
+        userId: action.payload.userId.toString(),
+        pendingBills: [...action.payload.pendingBills],
+        paidBills: null,
+      };
+      state.signupdata = [...state.signupdata, newSignUp];
+    },
+    editProfileHandler(state, action) {
+      console.log("action payload >>>", action.payload);
+      const indexOFItem = state.signupdata.findIndex(
+        (item) => item.userId === action.payload.userId
+      );
+      const newSignUpData = {
+        ...state.signupdata[indexOFItem],
+        address: action.payload.address,
+        password: action.payload.password,
+        name: action.payload.name,
+        email: action.payload.email,
+        phoneNumber: action.payload.contactNo,
+      };
+      const newSignUp = [...state.signupdata];
+      newSignUp[indexOFItem] = newSignUpData;
+      state.signupdata = newSignUp;
+    },
+  },
+});
+
+const ComplaintSlice = createSlice({
+  name: "complaint",
+  initialState: complaintInitials,
+  reducers: {
+    addComplaint(state, action) {
+      const indexOFItem = state.complaintData.findIndex(
+        (item) => item.userId === action.payload.userId
+      );
+
+      let newItem;
+
+      if (indexOFItem !== -1) {
+        //user ID already have an complaints array
+        const temp = state.complaintData[indexOFItem];
+        newItem = {
+          ...temp,
+          complaintDetails: [
+            action.payload.complaintDetails,
+            ...temp.complaintDetails,
+          ],
+        };
+        const updatedItems = [...state.complaintData];
+        updatedItems[indexOFItem] = newItem;
+        state.complaintData = updatedItems;
+      } else {
+        //new item to add in cart
+        const newItem = {
+          userId: action.payload.userId,
+          complaintDetails: [
+            {
+              ...action.payload.complaintDetails,
+            },
+          ],
+        };
+        const updatedItems = state.complaintData.concat(newItem);
+        console.log(updatedItems);
+        state.complaintData = updatedItems;
+      }
+    },
+    deleteComplaintById(state, action) {
+      // action.payload={userid:"", complaintId:""}
+    },
+    clearComplaintData(state) {
+      state.complaintData = [];
+    },
+  },
+});
+
+const rootReducer = combineReducers({
+  loginStore: LoginSlice.reducer,
+  signupStore: SignUpSlice.reducer,
+  complaintStore: ComplaintSlice.reducer,
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const loginReducers = LoginSlice.actions;
+export const signUpReducers = SignUpSlice.actions;
+export const complaintReducers = ComplaintSlice.actions;
+
+const store = configureStore({
+  reducer: persistedReducer,
+});
+const persistor = persistStore(store);
+export default store;
+export { persistor };
+
+```
+
+``REACT STORE FUNCTIONAL STRUCTURE -END- <js code>
+Read the above code and use this as an explaining into make the react store 
+
+
+``Things that will be implemented in the later stages no need to implement those right now:
+1. Cart functionality will be later on explained no need to implement, keep the buttons static 
+2. The functionality and frontend Structure of the side filter of the products will also be made later on. 
+3. The home screen have the section of the introduction of the brand, you can skip that for now.
+``Things explanation ends 
+
+** Pointers to keep in mind while developing code : <Do always respect these>
+
+``Pointers START 
+1. Throughout the prompt I will also keep on explaining what components you need to make, make sure you follow. 
+2. Make sure you follow the already implemented color scheme. 
+3. Follow the same styling throughout the new components. 
+4. use the resuable components < Explainations of such components are in the CONTEXT file >
+``Pointers END
+
+<<SOME IMPORTANT POINTERS FOR THE DEVEOPMENT>> *add this to the context file so that this is always followed*
+1. make sure the new UI is following the same theme 
+2. Keep the code to the minimal.
+3. Make sure you dont wrap the unneccessary too many divs aroudn the component 
+4. for layout, use the `display: flex` and to make the modal `REACT BOOTSTRAP MODAL`.
+5. keep code neat and clean human readable 

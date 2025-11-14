@@ -41,7 +41,9 @@ router.post(
         status: 200,
         message: 'success!! user logged in successful',
         data: {
-          userId: user.userID
+          userId: user.userID,
+          name: user.name,
+          email: user.email
         }
       });
 
