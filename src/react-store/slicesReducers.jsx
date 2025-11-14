@@ -34,11 +34,27 @@ const cartSlice = createSlice({
   initialState: cartInitialState,
   reducers: {
     addToCart(state, action) {
-      // Cart functionality will be implemented later
       state.items = { ...state.items, ...action.payload };
     },
+    updateQuantity(state, action) {
+      const { pId, quantity } = action.payload;
+      if (state.items[pId]) {
+        state.items[pId].quantity = quantity;
+      }
+    },
+    incrementQuantity(state, action) {
+      const pId = action.payload;
+      if (state.items[pId]) {
+        state.items[pId].quantity += 1;
+      }
+    },
+    decrementQuantity(state, action) {
+      const pId = action.payload;
+      if (state.items[pId] && state.items[pId].quantity > 1) {
+        state.items[pId].quantity -= 1;
+      }
+    },
     removeFromCart(state, action) {
-      // Cart functionality will be implemented later
       const newItems = { ...state.items };
       delete newItems[action.payload];
       state.items = newItems;

@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import heroImage from '@/assets/hero-cricket.jpg';
+import { HomePage } from '@/components/Home/HomePage';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -73,43 +74,9 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Products Preview Section */}
-      <section className="py-20 border-t border-foreground">
-        <div className="container mx-auto px-6">
-          <h3 className="text-3xl font-bold mb-12 text-center">Featured Products</h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Product 1 */}
-            <div className="border border-foreground p-6 flex flex-col gap-4 float-effect">
-              <div className="aspect-square bg-secondary flex items-center justify-center">
-                <span className="text-4xl font-bold">BAT</span>
-              </div>
-              <h4 className="text-2xl font-bold">Professional Cricket Bat</h4>
-              <p className="text-muted-foreground">
-                Premium willow construction for maximum power and control
-              </p>
-              <div className="flex items-center justify-between mt-auto">
-                <span className="text-2xl font-bold">$299</span>
-                <Button>Add to Cart</Button>
-              </div>
-            </div>
-
-            {/* Product 2 */}
-            <div className="border border-foreground p-6 flex flex-col gap-4 float-effect">
-              <div className="aspect-square bg-secondary flex items-center justify-center">
-                <span className="text-4xl font-bold">BALL</span>
-              </div>
-              <h4 className="text-2xl font-bold">Match Cricket Ball</h4>
-              <p className="text-muted-foreground">
-                Tournament-grade leather ball for professional play
-              </p>
-              <div className="flex items-center justify-between mt-auto">
-                <span className="text-2xl font-bold">$49</span>
-                <Button>Add to Cart</Button>
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* Products Section */}
+      <section className="border-t border-foreground">
+        <HomePage />
       </section>
 
       {/* Footer */}
