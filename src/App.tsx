@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { LoginSignUpPage } from "./components/Login/LoginSignUpPage";
 import { ResetPage } from "./components/ResetPassword/ResetPage";
+import { HomePage } from "./components/Home/HomePage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const queryClient = new QueryClient();
@@ -19,6 +20,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/auth" element={<LoginSignUpPage />} />
           <Route path="/auth/resetPassword" element={<ResetPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
