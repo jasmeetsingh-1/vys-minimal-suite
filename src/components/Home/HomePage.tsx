@@ -49,20 +49,12 @@ export const HomePage = () => {
   }, [toast]);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
+    <div className="flex">
+      <Filters />
       
-      <div className="container mx-auto p-6">
-        <div className="flex flex-col lg:flex-row gap-6">
-          <aside className="lg:w-64 flex-shrink-0">
-            <Filters />
-          </aside>
-          
-          <main className="flex-1">
-            <ProductSection products={products} loading={loading} />
-          </main>
-        </div>
-      </div>
+      <main className="flex-1 p-6">
+        <ProductSection products={products} loading={loading} />
+      </main>
     </div>
   );
 };

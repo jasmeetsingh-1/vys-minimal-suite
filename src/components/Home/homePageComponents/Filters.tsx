@@ -1,26 +1,38 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const Filters = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   return (
-    <div className="border border-foreground p-4">
-      <Button
-        variant="ghost"
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex justify-between items-center"
-      >
-        <span className="text-lg font-bold">Filters</span>
-        {isOpen ? <ChevronUp /> : <ChevronDown />}
-      </Button>
-      
-      {isOpen && (
-        <div className="mt-4 p-4 border-t border-foreground">
-          <p className="text-muted-foreground">Filter options will be implemented later</p>
-        </div>
+    <>
+      {isVisible ? (
+        <aside className="w-[20%] border-r border-foreground p-4 flex flex-col gap-4">
+          <div className="flex justify-between items-center">
+            <h3 className="text-lg font-bold">Filters</h3>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsVisible(false)}
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="mt-4">
+            <p className="text-muted-foreground">Filter options will be implemented later</p>
+          </div>
+        </aside>
+      ) : (
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setIsVisible(true)}
+          className="fixed left-0 top-1/2 -translate-y-1/2 z-10"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </Button>
       )}
-    </div>
+    </>
   );
 };
