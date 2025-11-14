@@ -470,4 +470,5 @@ curl -X POST http://localhost:9944/endpoint \
 - All reusable utility functions are in `utilities/helpers.js`
 - Using dummyData for now, will migrate to MongoDB later
 - Keep this file updated as project evolves
+- Whenever a new API is added or an existing one changes, update `backend/API_TESTING.md` with the latest cURL commands and response examples.
 

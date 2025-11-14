@@ -63,63 +63,6 @@ curl -X POST http://localhost:9944/vys/auth/new-signup \
 
 ---
 
-## Test Cases for Signup
-
-### Test Case 1: Successful Signup
-```bash
-curl -X POST http://localhost:9944/vys/auth/new-signup \
--H "Content-Type: application/json" \
--d '{
-  "email": "test1@example.com",
-  "passwordEncoded": "myEncodedPass123",
-  "name": "Test User One"
-}'
-```
-
-### Test Case 2: Missing Fields
-```bash
-curl -X POST http://localhost:9944/vys/auth/new-signup \
--H "Content-Type: application/json" \
--d '{
-  "email": "test2@example.com",
-  "name": "Test User Two"
-}'
-```
-
-### Test Case 3: Invalid Email Format
-```bash
-curl -X POST http://localhost:9944/vys/auth/new-signup \
--H "Content-Type: application/json" \
--d '{
-  "email": "invalid-email-format",
-  "passwordEncoded": "myEncodedPass123",
-  "name": "Test User Three"
-}'
-```
-
-### Test Case 4: Duplicate Email
-```bash
-# First create a user
-curl -X POST http://localhost:9944/vys/auth/new-signup \
--H "Content-Type: application/json" \
--d '{
-  "email": "duplicate@example.com",
-  "passwordEncoded": "myEncodedPass123",
-  "name": "First User"
-}'
-
-# Try to create another user with same email
-curl -X POST http://localhost:9944/vys/auth/new-signup \
--H "Content-Type: application/json" \
--d '{
-  "email": "duplicate@example.com",
-  "passwordEncoded": "anotherPass456",
-  "name": "Second User"
-}'
-```
-
----
-
 ## Notes
 - Base URL: `http://localhost:9944`
 - All requests use `Content-Type: application/json`
@@ -206,59 +149,6 @@ curl -X POST http://localhost:9944/vys/auth/login \
   "message": "Invalid credentials",
   "data": {}
 }
-```
-
----
-
-## Test Cases for Login
-
-### Test Case 1: Successful Login (with existing user)
-```bash
-curl -X POST http://localhost:9944/vys/auth/login \
--H "Content-Type: application/json" \
--d '{
-  "email": "test@example.com",
-  "password": "encodedPassword123"
-}'
-```
-
-### Test Case 2: Missing Fields
-```bash
-curl -X POST http://localhost:9944/vys/auth/login \
--H "Content-Type: application/json" \
--d '{
-  "email": "test@example.com"
-}'
-```
-
-### Test Case 3: Invalid Email Format
-```bash
-curl -X POST http://localhost:9944/vys/auth/login \
--H "Content-Type: application/json" \
--d '{
-  "email": "invalid-email",
-  "password": "encodedPassword123"
-}'
-```
-
-### Test Case 4: User Not Found
-```bash
-curl -X POST http://localhost:9944/vys/auth/login \
--H "Content-Type: application/json" \
--d '{
-  "email": "nonexistent@example.com",
-  "password": "somepassword"
-}'
-```
-
-### Test Case 5: Wrong Password
-```bash
-curl -X POST http://localhost:9944/vys/auth/login \
--H "Content-Type: application/json" \
--d '{
-  "email": "test@example.com",
-  "password": "wrongpassword"
-}'
 ```
 
 ---
@@ -398,70 +288,6 @@ curl -X POST http://localhost:9944/vys/auth/reset-password \
 
 ---
 
-## Test Cases for Reset Password
-
-### Test Case 1: Successful Password Reset (with valid token)
-```bash
-curl -X POST http://localhost:9944/vys/auth/reset-password \
--H "Content-Type: application/json" \
--d '{
-  "email": "test@example.com",
-  "userId": "test12345678ab",
-  "token": "abc123XYZ789token456def",
-  "newPasswordEncoded": "newEncodedPassword456"
-}'
-```
-
-### Test Case 2: Missing Fields
-```bash
-curl -X POST http://localhost:9944/vys/auth/reset-password \
--H "Content-Type: application/json" \
--d '{
-  "email": "test@example.com",
-  "userId": "test12345678ab"
-}'
-```
-
-### Test Case 3: Email/UserId Mismatch
-```bash
-curl -X POST http://localhost:9944/vys/auth/reset-password \
--H "Content-Type: application/json" \
--d '{
-  "email": "test@example.com",
-  "userId": "wronguserid123",
-  "token": "abc123XYZ789token456def",
-  "newPasswordEncoded": "newEncodedPassword456"
-}'
-```
-
-### Test Case 4: Invalid Token
-```bash
-curl -X POST http://localhost:9944/vys/auth/reset-password \
--H "Content-Type: application/json" \
--d '{
-  "email": "test@example.com",
-  "userId": "test12345678ab",
-  "token": "invalidtoken123456789012",
-  "newPasswordEncoded": "newEncodedPassword456"
-}'
-```
-
-### Test Case 5: Token Already Used (isValid=false)
-```bash
-# First use the token (Test Case 1)
-# Then try to use it again with the same curl command
-curl -X POST http://localhost:9944/vys/auth/reset-password \
--H "Content-Type: application/json" \
--d '{
-  "email": "test@example.com",
-  "userId": "test12345678ab",
-  "token": "abc123XYZ789token456def",
-  "newPasswordEncoded": "anotherNewPassword789"
-}'
-```
-
----
-
 ### 5. Get All Users
 
 **Endpoint:** `GET /vys/auth/get-all-users`
@@ -557,28 +383,6 @@ curl -X GET http://localhost:9944/vys/data/products \
 
 ---
 
-## Test Cases for Get Product Details
-
-### Test Case 1: Get Products by TypeId
-```bash
-curl -X GET 'http://localhost:9944/vys/data/products?typeId=013' \
--H "Content-Type: application/json"
-```
-
-### Test Case 2: Get All Products (no typeId)
-```bash
-curl -X GET http://localhost:9944/vys/data/products \
--H "Content-Type: application/json"
-```
-
-### Test Case 3: Invalid TypeId
-```bash
-curl -X GET 'http://localhost:9944/vys/data/products?typeId=999' \
--H "Content-Type: application/json"
-```
-
----
-
 ### 7. Create New Product
 
 **Endpoint:** `POST /vys/data/products/create`
@@ -653,67 +457,6 @@ curl -X POST http://localhost:9944/vys/data/products/create \
 
 ---
 
-## Test Cases for Create Product
-
-### Test Case 1: Successful Product Creation
-```bash
-curl -X POST http://localhost:9944/vys/data/products/create \
--H "Content-Type: application/json" \
--d '{
-  "pSubTypeId": "013221",
-  "pSubTypeName": "Standard Bat",
-  "pTypeId": "013",
-  "pTypeName": "Bat",
-  "pName": "Player Edition Bat",
-  "pCost": "3000",
-  "pDescription": "High-quality bat for intermediate players.",
-  "availability": true
-}'
-```
-
-### Test Case 2: Missing Required Fields
-```bash
-curl -X POST http://localhost:9944/vys/data/products/create \
--H "Content-Type: application/json" \
--d '{
-  "pSubTypeId": "013221",
-  "pSubTypeName": "Standard Bat",
-  "pTypeId": "013"
-}'
-```
-
-### Test Case 3: Invalid pTypeId
-```bash
-curl -X POST http://localhost:9944/vys/data/products/create \
--H "Content-Type: application/json" \
--d '{
-  "pSubTypeId": "999999",
-  "pSubTypeName": "Invalid Type",
-  "pTypeId": "999",
-  "pTypeName": "Invalid",
-  "pName": "Test Product",
-  "pCost": "1000",
-  "pDescription": "Test description"
-}'
-```
-
-### Test Case 4: SubType Does Not Belong to Type
-```bash
-curl -X POST http://localhost:9944/vys/data/products/create \
--H "Content-Type: application/json" \
--d '{
-  "pSubTypeId": "014532",
-  "pSubTypeName": "Premium Ball",
-  "pTypeId": "013",
-  "pTypeName": "Bat",
-  "pName": "Invalid Product",
-  "pCost": "1000",
-  "pDescription": "This should fail - Ball subtype with Bat type"
-}'
-```
-
----
-
 ### 8. Update Product Availability
 
 **Endpoint:** `POST /vys/data/products/availability`
@@ -771,55 +514,108 @@ curl -X POST http://localhost:9944/vys/data/products/availability \
 
 ---
 
-## Test Cases for Update Product Availability
+### 9. Get Product Types (with subtypes)
 
-### Test Case 1: Set Product to Unavailable
+**Endpoint:** `GET /vys/ecommerce/product-types`
+
+**Description:** Return all product types along with their subtypes.
+
+**cURL Command:**
 ```bash
-curl -X POST http://localhost:9944/vys/data/products/availability \
--H "Content-Type: application/json" \
--d '{
-  "pId": "00013",
-  "availability": false
-}'
+curl -X GET http://localhost:9944/vys/ecommerce/product-types \
+-H "Content-Type: application/json"
 ```
 
-### Test Case 2: Set Product to Available
-```bash
-curl -X POST http://localhost:9944/vys/data/products/availability \
--H "Content-Type: application/json" \
--d '{
-  "pId": "00013",
-  "availability": true
-}'
+**Success Response (200):**
+```json
+{
+  "status": 200,
+  "message": "success!! Product types fetched successfully",
+  "data": [
+    {
+      "pTypeId": "013",
+      "pTypeName": "Bat",
+      "subTypes": [
+        {
+          "pSubTypeId": "013432",
+          "pSubTypeName": "Premium Bat"
+        },
+        {
+          "pSubTypeId": "013221",
+          "pSubTypeName": "Standard Bat"
+        }
+      ]
+    }
+  ]
+}
 ```
 
-### Test Case 3: Missing Fields
-```bash
-curl -X POST http://localhost:9944/vys/data/products/availability \
--H "Content-Type: application/json" \
--d '{
-  "pId": "00013"
-}'
+**Error Response (500):**
+```json
+{
+  "status": 500,
+  "message": "Internal server error while fetching product types",
+  "data": []
+}
 ```
 
-### Test Case 4: Invalid Product ID
+---
+
+### 10. Get Product Subtypes by Type
+
+**Endpoint:** `GET /vys/ecommerce/product-types/:typeId/subtypes`
+
+**Description:** Return the list of subtypes for the provided product type ID.
+
+**cURL Command (typeId = 013):**
 ```bash
-curl -X POST http://localhost:9944/vys/data/products/availability \
--H "Content-Type: application/json" \
--d '{
-  "pId": "99999",
-  "availability": false
-}'
+curl -X GET http://localhost:9944/vys/ecommerce/product-types/013/subtypes \
+-H "Content-Type: application/json"
 ```
 
-### Test Case 5: Invalid Boolean Value (string instead)
-```bash
-curl -X POST http://localhost:9944/vys/data/products/availability \
--H "Content-Type: application/json" \
--d '{
-  "pId": "00013",
-  "availability": "false"
-}'
+**Success Response (200):**
+```json
+{
+  "status": 200,
+  "message": "success!! Product subtypes fetched successfully",
+  "data": [
+    {
+      "pSubTypeId": "013432",
+      "pSubTypeName": "Premium Bat"
+    },
+    {
+      "pSubTypeId": "013221",
+      "pSubTypeName": "Standard Bat"
+    }
+  ]
+}
+```
+
+**Error Response - Missing typeId (400):**
+```json
+{
+  "status": 400,
+  "message": "typeId parameter is required",
+  "data": []
+}
+```
+
+**Error Response - Invalid typeId (404):**
+```json
+{
+  "status": 404,
+  "message": "Invalid typeId parameter",
+  "data": []
+}
+```
+
+**Error Response - Server Error (500):**
+```json
+{
+  "status": 500,
+  "message": "Internal server error while fetching product subtypes",
+  "data": []
+}
 ```
 
 ---

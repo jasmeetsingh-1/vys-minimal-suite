@@ -601,7 +601,7 @@ Read the above code and use this as an explaining into make the react store
 ** Pointers to keep in mind while developing code : <Do always respect these>
 
 ``Pointers START 
-1. Throughout the prompt I will also keep on explaining what components you need to make, make sure you follow. 
+1. Throughout the prompt I have also keep on explaining what components you need to make, make sure you follow. 
 2. Make sure you follow the already implemented color scheme. 
 3. Follow the same styling throughout the new components. 
 4. use the resuable components < Explainations of such components are in the CONTEXT file >
@@ -613,3 +613,278 @@ Read the above code and use this as an explaining into make the react store
 3. Make sure you dont wrap the unneccessary too many divs aroudn the component 
 4. for layout, use the `display: flex` and to make the modal `REACT BOOTSTRAP MODAL`.
 5. keep code neat and clean human readable 
+
+
+---Third prompt <END>----
+
+
+--- Fourth prompt <START> ---
+
+# 🟦 New Functionality: Home Page (E-Commerce)
+
+## 📌 OVERVIEW
+You must build the Home Page for the e-commerce system.  
+Follow ALL existing context rules for API calls & Redux usage.  
+Do NOT add any new Context Rules.
+
+---
+
+# 📁 PROJECT STRUCTURE
+
+Create the following structure:
+
+src/components/
+  Home/
+    HomePage.jsx
+    homePageComponents/
+      ProductSection.jsx
+      ProductCard.jsx      // contains the PRODUCT CARD code given below
+      Filters.jsx          // collapsible UI-only filter section for now
+  Header/
+    Header.jsx             // basic placeholder component (UI later)
+
+---
+
+# 🛒 PRODUCT CARD REQUIREMENTS
+
+Use the already existing product card code and move it to:
+
+`src/components/Home/homePageComponents/ProductCard.jsx`
+
+Paste this markup inside the ProductCard component:
+
+```<div className="border border-foreground p-6 flex flex-col gap-4 float-effect"> <div className="aspect-square bg-secondary flex items-center justify-center"> <span className="text-4xl font-bold">BAT</span> </div> <h4 className="text-2xl font-bold">Professional Cricket Bat</h4> <p className="text-muted-foreground"> Premium willow construction for maximum power and control </p> <div className="flex items-center justify-between mt-auto"> <span className="text-2xl font-bold">$299</span> <Button>Add to Cart</Button> </div> </div> ```
+
+Product Card Behavior:
+
+A) Update Redux cart slice immediately → YES
+B) Cart logic can be UI-only for now → YES
+
+🎛️ FILTERS COMPONENT (UI-ONLY FOR NOW)
+
+Create:
+
+src/components/Home/homePageComponents/Filters.jsx
+
+Rules:
+
+Add ONLY a Show/Hide Filters button.
+
+When expanded → display a placeholder panel.
+
+The internal UI (text, formatting, div structure) will be defined later.
+
+Do NOT implement real filtering logic yet.
+
+🧩 HEADER COMPONENT
+
+Create:
+
+src/components/Header/Header.jsx
+
+Requirements:
+
+Only a basic placeholder/skeleton.
+
+The real UI/layout/navigation will be added later.
+
+🌐 API REQUIREMENTS (ON HOME PAGE INITIAL LOAD)
+
+Use these APIs:
+
+1️⃣ GET /vys/ecommerce/product-types
+
+For left panel Filters (data usage will come later)
+
+2️⃣ GET /vys/data/products?typeId=
+
+For the right-side ProductSection product list
+
+APIs explanation 
+
+## Product Data APIs
+
+### 6. Get Product Details
+
+**Endpoint:** `GET /vys/data/products?typeId=`
+
+**Description:** Get all products by typeId, or all products if no typeId provided
+
+**cURL Command (with typeId):**
+```bash
+curl -X GET 'http://localhost:9944/vys/data/products?typeId=014' \
+-H "Content-Type: application/json"
+```
+
+**cURL Command (all products):**
+```bash
+curl -X GET http://localhost:9944/vys/data/products \
+-H "Content-Type: application/json"
+```
+
+**Success Response (200):**
+```json
+{
+  "status": 200,
+  "message": "success!! Products fetched successfully",
+  "data": [
+    {
+      "pId": "00014",
+      "pSubTypeDetails": {
+        "pSubTypeId": "014532",
+        "pSubTypeName": "Premium Ball"
+      },
+      "pTypeDetails": {
+        "pTypeId": "014",
+        "pTypeName": "Ball"
+      },
+      "pName": "Velocity Pro Ball",
+      "pCost": "1200",
+      "pDescription": "High-quality leather cricket ball suitable for tournaments.",
+      "availability": true
+    }
+  ]
+}
+```
+
+**Error Response - Invalid typeId (404):**
+```json
+{
+  "status": 404,
+  "message": "Invalid or missing typeId parameter",
+  "data": []
+}
+```
+
+
+### 9. Get Product Types (with subtypes)
+
+**Endpoint:** `GET /vys/ecommerce/product-types`
+
+**Description:** Return all product types along with their subtypes.
+
+**cURL Command:**
+```bash
+curl -X GET http://localhost:9944/vys/ecommerce/product-types \
+-H "Content-Type: application/json"
+```
+
+**Success Response (200):**
+```json
+{
+  "status": 200,
+  "message": "success!! Product types fetched successfully",
+  "data": [
+    {
+      "pTypeId": "013",
+      "pTypeName": "Bat",
+      "subTypes": [
+        {
+          "pSubTypeId": "013432",
+          "pSubTypeName": "Premium Bat"
+        },
+        {
+          "pSubTypeId": "013221",
+          "pSubTypeName": "Standard Bat"
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Error Response (500):**
+```json
+{
+  "status": 500,
+  "message": "Internal server error while fetching product types",
+  "data": []
+}
+```
+
+---
+
+### 10. Get Product Subtypes by Type
+
+**Endpoint:** `GET /vys/ecommerce/product-types/:typeId/subtypes`
+
+**Description:** Return the list of subtypes for the provided product type ID.
+
+**cURL Command (typeId = 013):**
+```bash
+curl -X GET http://localhost:9944/vys/ecommerce/product-types/013/subtypes \
+-H "Content-Type: application/json"
+```
+
+**Success Response (200):**
+```json
+{
+  "status": 200,
+  "message": "success!! Product subtypes fetched successfully",
+  "data": [
+    {
+      "pSubTypeId": "013432",
+      "pSubTypeName": "Premium Bat"
+    },
+    {
+      "pSubTypeId": "013221",
+      "pSubTypeName": "Standard Bat"
+    }
+  ]
+}
+```
+
+**Error Response - Missing typeId (400):**
+```json
+{
+  "status": 400,
+  "message": "typeId parameter is required",
+  "data": []
+}
+```
+
+**Error Response - Invalid typeId (404):**
+```json
+{
+  "status": 404,
+  "message": "Invalid typeId parameter",
+  "data": []
+}
+```
+
+**Error Response - Server Error (500):**
+```json
+{
+  "status": 500,
+  "message": "Internal server error while fetching product subtypes",
+  "data": []
+}
+```
+
+
+
+🔵 Important:
+Follow all existing API rules already written in the context.
+NO new Context Rules should be added.
+
+🧱 HOMEPAGE REQUIREMENTS
+
+HomePage.jsx should:
+
+Load product types & products on first render.
+
+Render:
+
+Header
+
+Filters panel (left)
+
+ProductSection with ProductCard (right)
+
+Use Redux for cart updates.
+
+Use the existing card UI, just moved to the dedicated component file.
+
+📝 OTHER NOTES <RESPECT THESE >
+For now, the filter UI and header UI are placeholder only.
+Use the existing styles, structure, and component patterns already established in the project.
