@@ -21,6 +21,28 @@
 - `.float-effect`: Floating effect with translateY on hover
 - `.subtle-float`: Subtle box-shadow for depth
 
+## React Store (Redux)
+- **Location**: src/react-store/
+- **Files**: 
+  - `store.jsx` - Redux store configuration with persist
+  - `slicesReducers.jsx` - Auth and Cart slices with reducers
+- **Structure**:
+  ```js
+  {
+    authData: {
+      userId: string | null,
+      name: string | null,
+      email: string | null
+    },
+    cartItems: {
+      items: {}
+    }
+  }
+  ```
+- **Auth Actions**: setAuthData, clearAuthData
+- **Cart Actions**: addToCart, removeFromCart, clearCart
+- **Persist**: Uses redux-persist with localStorage
+
 ## Components Structure
 
 ### Authentication (/auth route)
@@ -79,6 +101,10 @@
   - Currently using dummy timer (2 second delay)
   - Need to implement actual email sending functionality
   - Should show "sending email" state and success message
+- [ ] Cart functionality implementation
+  - Cart items management in Redux store
+  - Add to cart, remove from cart actions
+  - Cart UI components
 
 ## Next Steps
 - Product catalog pages
