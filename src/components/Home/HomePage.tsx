@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { Header } from '@/components/Header/Header';
 import { Filters } from './homePageComponents/Filters';
 import { ProductSection } from './homePageComponents/ProductSection';
@@ -10,47 +10,80 @@ export const HomePage = () => {
   const [productTypes, setProductTypes] = useState<ProductType[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const debounceTimer = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchProductTypes = async () => {
       try {
-        setLoading(true);
-        
-        const [productsResponse, typesResponse] = await Promise.all([
-          productApi.getProducts(),
-          productApi.getProductTypes(),
-        ]);
-
-        if (productsResponse.status === 200) {
-          setProducts(productsResponse.data);
-        } else {
-          toast({
-            title: "Error",
-            description: "Failed to load products",
-            variant: "destructive",
-          });
-        }
-
+        const typesResponse = await productApi.getProductTypes();
         if (typesResponse.status === 200) {
           setProductTypes(typesResponse.data);
         }
       } catch (error) {
         toast({
           title: "Error",
-          description: "Failed to load data",
+          description: "Failed to load product types",
           variant: "destructive",
         });
-      } finally {
-        setLoading(false);
       }
     };
 
-    fetchData();
+    fetchProductTypes();
   }, [toast]);
+
+  const fetchProducts = useCallback(async (typeId?: string, subTypeId?: string) => {
+    try {
+      setLoading(true);
+      const productsResponse = await productApi.getProducts(typeId);
+
+      if (productsResponse.status === 200) {
+        let filteredProducts = productsResponse.data;
+        
+        if (subTypeId) {
+          filteredProducts = filteredProducts.filter(
+            (product) => product.pSubTypeDetails.pSubTypeId === subTypeId
+          );
+        }
+        
+        setProducts(filteredProducts);
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to load products",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to load products",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  }, [toast]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+  const handleFilterChange = useCallback((typeId?: string, subTypeId?: string) => {
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
+
+    debounceTimer.current = setTimeout(() => {
+      fetchProducts(typeId, subTypeId);
+    }, 2000);
+  }, [fetchProducts]);
 
   return (
     <div className="flex">
-      <Filters />
+      <Filters 
+        productTypes={productTypes} 
+        onFilterChange={handleFilterChange}
+      />
       
       <main className="flex-1 p-6">
         <ProductSection products={products} loading={loading} />
