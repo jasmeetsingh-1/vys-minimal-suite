@@ -28,7 +28,7 @@ export const Filters = () => {
           variant="outline"
           size="icon"
           onClick={() => setIsVisible(true)}
-          className="fixed left-0 top-1/2 -translate-y-1/2 z-10"
+          className="relative"
         >
           <ChevronRight className="h-4 w-4" />
         </Button>
