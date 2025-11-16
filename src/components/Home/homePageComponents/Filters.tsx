@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { FiltersSkeleton } from '@/components/SkeletonLoaders/FiltersSkeleton';
 import type { ProductType } from '@/lib/api';
 
 interface FiltersProps {
   productTypes: ProductType[];
   onFilterChange: (typeId: string | undefined, subTypeId: string | undefined) => void;
+  loading?: boolean;
 }
 
-export const Filters = ({ productTypes, onFilterChange }: FiltersProps) => {
+export const Filters = ({ productTypes, onFilterChange, loading = false }: FiltersProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [selectedType, setSelectedType] = useState<string | undefined>();
   const [selectedSubType, setSelectedSubType] = useState<string | undefined>();
@@ -42,7 +44,10 @@ export const Filters = ({ productTypes, onFilterChange }: FiltersProps) => {
             </Button>
           </div>
           <div className="flex flex-col gap-6">
-            {productTypes.map((type) => (
+            {loading ? (
+              <FiltersSkeleton />
+            ) : (
+              productTypes.map((type) => (
               <div key={type.pTypeId} className="flex flex-col gap-2">
                 <Button
                   variant={selectedType === type.pTypeId ? 'default' : 'ghost'}
@@ -68,7 +73,8 @@ export const Filters = ({ productTypes, onFilterChange }: FiltersProps) => {
                   </div>
                 )}
               </div>
-            ))}
+              ))
+            )}
           </div>
         </aside>
       ) : (

@@ -9,12 +9,14 @@ export const HomePage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [productTypes, setProductTypes] = useState<ProductType[]>([]);
   const [loading, setLoading] = useState(true);
+  const [filtersLoading, setFiltersLoading] = useState(true);
   const { toast } = useToast();
   const debounceTimer = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     const fetchProductTypes = async () => {
       try {
+        setFiltersLoading(true);
         const typesResponse = await productApi.getProductTypes();
         if (typesResponse.status === 200) {
           setProductTypes(typesResponse.data);
@@ -25,6 +27,8 @@ export const HomePage = () => {
           description: "Failed to load product types",
           variant: "destructive",
         });
+      } finally {
+        setFiltersLoading(false);
       }
     };
 
@@ -83,6 +87,7 @@ export const HomePage = () => {
       <Filters 
         productTypes={productTypes} 
         onFilterChange={handleFilterChange}
+        loading={filtersLoading}
       />
       
       <main className="flex-1 p-6">
