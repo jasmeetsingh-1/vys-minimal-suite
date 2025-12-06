@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
-import { Header } from '@/components/Header/Header';
 import { Filters } from './homePageComponents/Filters';
 import { ProductSection } from './homePageComponents/ProductSection';
 import { productApi, type Product, type ProductType } from '@/lib/api';
@@ -84,12 +83,6 @@ export const HomePage = () => {
 
   return (
     <div className="flex">
-      <Filters 
-        productTypes={productTypes} 
-        onFilterChange={handleFilterChange}
-        loading={filtersLoading}
-      />
-      
       <main className="flex-1 p-6">
         <ProductSection products={products} loading={loading} />
       </main>

@@ -383,6 +383,70 @@ curl -X GET http://localhost:9944/vys/data/products \
 
 ---
 
+### 6.5. Get Product by ID
+
+**Endpoint:** `GET /vys/data/products/:pId`
+
+**Description:** Get a single product by its product ID (pId)
+
+**cURL Command:**
+```bash
+curl -X GET http://localhost:9944/vys/data/products/00014 \
+-H "Content-Type: application/json"
+```
+
+**Success Response (200):**
+```json
+{
+  "status": 200,
+  "message": "success!! Product fetched successfully",
+  "data": {
+    "pId": "00014",
+    "pSubTypeDetails": {
+      "pSubTypeId": "014532",
+      "pSubTypeName": "Premium Ball"
+    },
+    "pTypeDetails": {
+      "pTypeId": "014",
+      "pTypeName": "Ball"
+    },
+    "pName": "Velocity Pro Ball",
+    "pCost": "1200",
+    "pDescription": "High-quality leather cricket ball suitable for tournaments.",
+    "availability": true
+  }
+}
+```
+
+**Error Response - Missing pId (400):**
+```json
+{
+  "status": 400,
+  "message": "Missing pId parameter",
+  "data": {}
+}
+```
+
+**Error Response - Product Not Found (404):**
+```json
+{
+  "status": 404,
+  "message": "Product with given pId not found",
+  "data": {}
+}
+```
+
+**Error Response - Server Error (500):**
+```json
+{
+  "status": 500,
+  "message": "Internal server error while fetching product",
+  "data": {}
+}
+```
+
+---
+
 ### 7. Create New Product
 
 **Endpoint:** `POST /vys/data/products/create`

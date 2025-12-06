@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import ProductDetail from "./pages/ProductDetail";
 import { LoginSignUpPage } from "./components/Login/LoginSignUpPage";
 import { ResetPage } from "./components/ResetPassword/ResetPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,6 +20,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/auth" element={<LoginSignUpPage />} />
           <Route path="/auth/resetPassword" element={<ResetPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

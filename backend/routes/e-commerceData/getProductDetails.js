@@ -3,6 +3,47 @@ const router = express.Router();
 const productDetailsData = require('../../dummyData/dummyProductDetails');
 const { getProductTypeDetails } = require('../../utilities/helpers');
 
+// GET /vys/data/products/:pId
+// Description: Get a single product by its pId
+router.get('/products/:pId', (req, res) => {
+  try {
+    const { pId } = req.params;
+
+    if (!pId) {
+      return res.status(400).json({
+        status: 400,
+        message: 'Missing pId parameter',
+        data: {}
+      });
+    }
+
+    // Find product by pId
+    const product = productDetailsData.findByProductId(pId);
+
+    if (!product) {
+      return res.status(404).json({
+        status: 404,
+        message: 'Product with given pId not found',
+        data: {}
+      });
+    }
+
+    return res.status(200).json({
+      status: 200,
+      message: 'success!! Product fetched successfully',
+      data: product
+    });
+
+  } catch (error) {
+    console.error('Get product by ID error:', error);
+    return res.status(500).json({
+      status: 500,
+      message: 'Internal server error while fetching product',
+      data: {}
+    });
+  }
+});
+
 // GET /vys/data/products?typeId=
 // Description: Get all products by typeId, or all products if no typeId provided
 router.get('/products', (req, res) => {

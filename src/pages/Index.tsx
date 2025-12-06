@@ -1,43 +1,12 @@
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import heroImage from '@/assets/hero-cricket.jpg';
 import { HomePage } from '@/components/Home/HomePage';
+import { Header } from '@/components/Header/Header';
 
 const Index = () => {
-  const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    setIsAuthenticated(!!userId);
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem('userId');
-    setIsAuthenticated(false);
-  };
-
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header */}
-      <header className="border-b border-foreground subtle-float">
-        <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold">VYS</h1>
-          
-          <div className="flex gap-4">
-            {isAuthenticated ? (
-              <Button variant="outline" onClick={handleLogout}>
-                Logout
-              </Button>
-            ) : (
-              <Button variant="outline" onClick={() => navigate('/auth')}>
-                Login
-              </Button>
-            )}
-          </div>
-        </nav>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <section className="flex-1 flex items-center">

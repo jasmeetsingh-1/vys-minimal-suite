@@ -153,4 +153,15 @@ export const productApi = {
     
     return response.json();
   },
+
+  async getProductDetails(pId: string): Promise<ApiResponse<Product>> {
+    const response = await fetch(`${API_BASE_URL}/vys/data/products/${pId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    
+    return response.json();
+  },
 };
